@@ -9,4 +9,19 @@
 
 ## Heptachron - 7 segment LED wrist watch
 
+### Features
+ - [ ] 6 digits
+ - [ ] Always-on display
+ - [ ] Rechargeable battery
+ - [ ] Magnetic charger
+ - [ ] Long battery life
+ - [x] Megatron
+ - [ ] Not waterproof
+ - [ ] Very accurate
+
+### Contributors
+
+Gustav Abrahamsson
+Adam Anderson
+Martin Andersson
 
