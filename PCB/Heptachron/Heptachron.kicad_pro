@@ -243,8 +243,12 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [],
-    "pinned_symbol_libs": []
+    "pinned_footprint_libs": [
+      "Heptachron-Lib"
+    ],
+    "pinned_symbol_libs": [
+      "Heptachron"
+    ]
   },
   "meta": {
     "filename": "Heptachron.kicad_pro",
