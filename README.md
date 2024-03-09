@@ -5,12 +5,19 @@
  / __  / /___/ ____/ / / / ___ / /___/ __  / _, _/ /_/ / /|  /  
 /_/ /_/_____/_/     /_/ /_/  |_\____/_/ /_/_/ |_|\____/_/ |_/   
 ```                                                                
-
-
 ## Heptachron - 7 segment LED wrist watch
 
+### Concepts and ideas
+
+
+![CAD concept](<Pictures/Heptachron_LED v5.png>)
+
+![PCB render](Pictures/PCB_concept.png)
+
+
 ### Features
- - [ ] 6 digits
+ - [ ] 4 digits (hours and minutes)
+ - [ ] Seconds displayed in binary (5 bits)
  - [ ] Always-on display
  - [ ] Rechargeable battery
  - [ ] Magnetic charger
@@ -21,7 +28,5 @@
 
 ### Contributors
 
-Gustav Abrahamsson
-Adam Anderson
-Martin Andersson
+Gustav Abrahamsson, Adam Anderson, Martin Andersson 
 
