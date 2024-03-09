@@ -1,0 +1,25 @@
+CS:n  -   Current sink 'n', one for each digit       [CATHODE]
+                                                              
+SW:n  -   Switch power source, one for each segment  [ANODE]  
+               SW1: A, SW2: B, ..., SW7: G                    
+                                                              
+                                                              
+                                                              
+                                                              
+                          ┌─┬───┐                             
+                          │◄│A  │                             
+                          └─┴───┘                             
+                   ┌───┐           ┌─▲─┐                      
+                   │   │           ├───┤                      
+                   │ F │           │ B │                      
+                   ├───┤           │   │                      
+                   └─▼─┘  ┌─┬───┐  └───┘                      
+                          │◄│G  │                             
+                   ┌───┐  └─┴───┘  ┌─▲─┐                      
+                   │   │           ├───┤                      
+                   │ E │           │ C │                      
+                   ├───┤           │   │                      
+                   └─▼─┘           └───┘                      
+                          ┌─┬───┐                             
+                          │◄│D  │                             
+                          └─┴───┘                             
