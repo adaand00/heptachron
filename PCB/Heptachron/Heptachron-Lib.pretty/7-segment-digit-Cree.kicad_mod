@@ -195,4 +195,19 @@
     (thermal_bridge_angle 45) (tstamp e61dd85f-a481-4e3e-b224-3ed65ca96147))
   (pad "14" smd roundrect (at 0.980431 -0.564746 82) (size 2.55 1.1) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.25)
     (thermal_bridge_angle 45) (tstamp 975be7f3-eabe-44ee-a99c-97155f012fe9))
+  (model "C:/Programmering/Github_mapp/heptachron/PCB/3D_Files/Cree_LED/Cree_Digit.step" hide
+    (offset (xyz -6 0 -7))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
+  (model "C:/Programmering/Github_mapp/heptachron/PCB/3D_Files/Cree_LED/Heptachron_LED v5_BRIGHT.step" hide
+    (offset (xyz -6 0 -7))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
+  (model "C:/Programmering/Github_mapp/heptachron/PCB/3D_Files/Cree_LED/Heptachron_LED v5_BRIGHT_V2.step"
+    (offset (xyz -6 0 -7))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
 )
