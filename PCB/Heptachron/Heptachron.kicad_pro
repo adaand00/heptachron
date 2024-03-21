@@ -498,26 +498,6 @@
     [
       "c6ec4407-9aab-4aab-950a-5d337d47ac64",
       ""
-    ],
-    [
-      "f7b472ff-d0e8-4b96-a213-bd6b23993d79",
-      "7-Segment-Cree-PLCC2"
-    ],
-    [
-      "e2a33806-2ab9-4892-ac61-637811025f41",
-      "7-Segment-Cree-PLCC3"
-    ],
-    [
-      "329bd2db-c85d-41ea-b8c1-cb35a3e4457c",
-      "7-Segment-Cree-PLCC5"
-    ],
-    [
-      "06967ccc-5584-496d-95dc-e388d9779bdb",
-      "7-Segment-Cree-PLCC4"
-    ],
-    [
-      "6ae141dd-0a5f-4be5-98be-648a59062572",
-      "7-segment-subcircuit"
     ]
   ],
   "text_variables": {}
