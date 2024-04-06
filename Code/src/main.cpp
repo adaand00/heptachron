@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include "Wire.h"
+
+#include "LedMatrix.h"
 
 #define SCL PIN_PB0
 #define SDA PIN_PB1
@@ -21,10 +24,26 @@
 #define LED_ADDR 0x34
 #define RTK_ADDR 0x52
 
+LedMatrix mat(&Wire);
+int i = 0;
+
 void setup() {
+  delay(100);
+  pinMode(LED_EN, OUTPUT);
+  digitalWrite(LED_EN, HIGH);
+
   // put your setup code here, to run once:
+  Wire.begin();
+
+  mat.begin();
+
+  mat.ShowTime(0,0,0);
+
 }
 
 void loop() {
+  mat.ShowTime(i*10+i,i*10+i,i);
+  i = (i+1)%10;
   // put your main code here, to run repeatedly:
+  delay(1000);
 }
