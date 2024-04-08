@@ -2,6 +2,7 @@
 #include "Wire.h"
 
 #include "LedMatrix.h"
+#include "RV-3028-C7.h"
 
 #define SCL PIN_PB0
 #define SDA PIN_PB1
@@ -25,6 +26,8 @@
 #define RTK_ADDR 0x52
 
 LedMatrix mat(&Wire);
+RV3028 rtc;
+
 int i = 0;
 
 void setup() {
@@ -36,8 +39,18 @@ void setup() {
   Wire.begin();
 
   mat.begin();
+  
+  // Allow for RTC to init
+  delay(100);
 
-  mat.ShowTime(0,0,0);
+  rtc.begin(Wire, true, true, false);
+  rtc.setToCompilerTime();
+
+  rtc.enableClockOut(FD_CLKOUT_1);
+
+  rtc.updateTime();
+
+  mat.ShowTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds());
 
 }
 
@@ -46,4 +59,5 @@ void loop() {
   i = (i+1)%10;
   // put your main code here, to run repeatedly:
   delay(1000);
+  
 }
