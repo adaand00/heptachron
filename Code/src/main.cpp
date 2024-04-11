@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include "Wire.h"
+#include "avr/sleep.h"
 
 #include "LedMatrix.h"
-#include "RV-3028-C7.h"
+//#include "RV-3028-C7.h"
+#include "RV3028C7.h"
 
 #define SCL PIN_PB0
 #define SDA PIN_PB1
@@ -26,38 +28,65 @@
 #define RTK_ADDR 0x52
 
 LedMatrix mat(&Wire);
-RV3028 rtc;
+//RV3028 rtc;
+RV3028C7 rtc;
 
 int i = 0;
 
 void setup() {
-  delay(100);
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_enable();
+  //sleep_cpu();
+  
+  pinMode(LIGHT_EN, OUTPUT);
+  digitalWrite(LIGHT_EN, LOW);
+  pinMode(LIGHT_IN, INPUT);
+  pinMode(BU1, INPUT_PULLUP);
+  pinMode(BU2, INPUT_PULLUP);
+
   pinMode(LED_EN, OUTPUT);
   digitalWrite(LED_EN, HIGH);
+
+  // Clock pin interrupts
+  pinMode(RTC_CLK, INPUT);
+  PORTB_PIN3CTRL |= PORT_ISC_BOTHEDGES_gc;
 
   // put your setup code here, to run once:
   Wire.begin();
 
   mat.begin();
-  
-  // Allow for RTC to init
-  delay(100);
 
-  rtc.begin(Wire, true, true, false);
-  rtc.setToCompilerTime();
+  delay(300);
 
-  rtc.enableClockOut(FD_CLKOUT_1);
+  rtc.begin(Wire);
 
-  rtc.updateTime();
+  delay(1000);
 
-  mat.ShowTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds());
+  rtc.disableClockOutput();
 
+  delay(1000);
+
+  rtc.enableClockOutput(CLKOUT_1HZ);
+
+  char * t;
+  //t = rtc.getCurrentDateTime();
+
+  mat.ShowTime(0, 0, 0);  
+}
+
+ISR(PORTB_PORT_vect){
+  VPORTB_INTFLAGS |= 1<<3;
 }
 
 void loop() {
-  mat.ShowTime(i*10+i,i*10+i,i);
-  i = (i+1)%10;
-  // put your main code here, to run repeatedly:
-  delay(1000);
-  
+  sleep_cpu();
+  delay(100);
+  digitalWrite(LIGHT_EN, HIGH);
+  delay(2);
+  int l = analogRead(LIGHT_IN);
+  digitalWrite(LIGHT_EN, LOW);
+
+  //rtc.updateTime();
+  i++;
+  mat.ShowTime(i/100, i%100, 0); 
 }

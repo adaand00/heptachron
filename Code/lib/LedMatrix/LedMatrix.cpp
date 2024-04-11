@@ -10,11 +10,11 @@ void LedMatrix::begin(){
   //Scaling of all current sources (CSy)
   for (int i = 0; i < 16; i++)
   {
-    writeRegister(0x90 + i, 64);
+    writeRegister(0x90 + i, 200);
   }
   
   //Global current, max 64
-  writeRegister(0xA1, 5);
+  writeRegister(0xA1, 20);
 
   //Conf register, 5 SW, 2.4V Logic, disable open/short det, Normal operation
   writeRegister(0xA0, 0b01001001); 
@@ -24,7 +24,11 @@ void LedMatrix::begin(){
 void LedMatrix::writeByte(char byte, uint8_t sw){
   char start = sw*16 + 1;
   for(int i = start; i < start + 8; i++){
-    writeRegister(i, (byte & 1) * 255);
+    if(sw == 4){
+      writeRegister(i, (byte & 1) * 255);
+    }else{
+     writeRegister(i, (byte & 1) * 2);
+    }
     byte = byte >> 1;
   }
 
@@ -37,6 +41,8 @@ void LedMatrix::ShowTime(uint8_t h, uint8_t m, uint8_t s){
  
   writeByte(num_to_seg[h%10], 2);
   writeByte(num_to_seg[(h/10)%10], 3);
+
+  writeByte(s, 4);
 
 }
 
