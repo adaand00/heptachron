@@ -17,7 +17,7 @@
 
 ### Features
  - [ ] 4 digits (hours and minutes)
- - [ ] Seconds displayed in binary (5 bits)
+ - [ ] Seconds displayed in binary (6 bits)
  - [ ] Always-on display
  - [ ] Rechargeable battery
  - [ ] Magnetic charger
@@ -28,5 +28,5 @@
 
 ### Contributors
 
-Gustav Abrahamsson, Adam Anderson, Martin Andersson 
+Gustav Abrahamsson, Adam Anderson 
 
