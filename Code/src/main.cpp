@@ -3,7 +3,6 @@
 #include "avr/sleep.h"
 
 #include "LedMatrix.h"
-//#include "RV-3028-C7.h"
 #include "RV3028C7.h"
 
 #define SCL PIN_PB0
@@ -34,10 +33,11 @@ RV3028C7 rtc;
 int i = 0;
 
 void setup() {
+  // Setup sleep mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   sleep_enable();
-  //sleep_cpu();
   
+  // Setup pins
   pinMode(LIGHT_EN, OUTPUT);
   digitalWrite(LIGHT_EN, LOW);
   pinMode(LIGHT_IN, INPUT);
@@ -51,27 +51,21 @@ void setup() {
   pinMode(RTC_CLK, INPUT);
   PORTB_PIN3CTRL |= PORT_ISC_BOTHEDGES_gc;
 
-  // put your setup code here, to run once:
+  // I2C 
   Wire.begin();
+  Wire.setClock(400000);
 
+  // LED matrix driver
   mat.begin();
 
-  delay(300);
+  delay(100);
 
+  // RTC 
   rtc.begin(Wire);
-
   delay(1000);
-
   rtc.disableClockOutput();
-
   delay(1000);
-
   rtc.enableClockOutput(CLKOUT_1HZ);
-
-  char * t;
-  //t = rtc.getCurrentDateTime();
-
-  mat.ShowTime(0, 0, 0);  
 }
 
 ISR(PORTB_PORT_vect){
@@ -79,14 +73,24 @@ ISR(PORTB_PORT_vect){
 }
 
 void loop() {
-  sleep_cpu();
-  delay(100);
+  // Waits until pin change interrupt
+  // Either RTC tick or button press
+  sleep_cpu(); 
+
+  // TODO: handle button inputs
+
+  // TODO: read battery voltage
+
+  // Read phototransistor
   digitalWrite(LIGHT_EN, HIGH);
-  delay(2);
+  delay(2); 
   int l = analogRead(LIGHT_IN);
   digitalWrite(LIGHT_EN, LOW);
 
-  //rtc.updateTime();
-  i++;
-  mat.ShowTime(i/100, i%100, 0); 
+  // Read time and update LEDs
+  rtc.updateTime();
+  uint8_t h = rtc.getDateTimeComponent(DATETIME_HOUR);
+  uint8_t m = rtc.getDateTimeComponent(DATETIME_MINUTE);
+  uint8_t s = rtc.getDateTimeComponent(DATETIME_SECOND);
+  mat.ShowTime(h, m, s); 
 }
