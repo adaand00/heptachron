@@ -27,7 +27,7 @@ void LedMatrix::writeByte(char byte, uint8_t sw){
     if(sw == 4){
       writeRegister(i, (byte & 1) * 255);
     }else{
-     writeRegister(i, (byte & 1) * 2);
+     writeRegister(i, (byte & 1) * 32);
     }
     byte = byte >> 1;
   }

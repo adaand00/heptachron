@@ -30,7 +30,17 @@ LedMatrix mat(&Wire);
 //RV3028 rtc;
 RV3028C7 rtc;
 
-int i = 0;
+typedef struct button
+{
+  bool pressed;
+  unsigned long time;
+} button_t;
+
+
+button_t b1;
+button_t b2;
+
+int i = 50;
 
 void setup() {
   // Setup sleep mode
@@ -41,11 +51,19 @@ void setup() {
   pinMode(LIGHT_EN, OUTPUT);
   digitalWrite(LIGHT_EN, LOW);
   pinMode(LIGHT_IN, INPUT);
+
   pinMode(BU1, INPUT_PULLUP);
+  PORTA_PIN6CTRL |= PORT_ISC_BOTHEDGES_gc;
+
   pinMode(BU2, INPUT_PULLUP);
+  PORTA_PIN7CTRL |= PORT_ISC_BOTHEDGES_gc;
 
   pinMode(LED_EN, OUTPUT);
   digitalWrite(LED_EN, HIGH);
+
+  pinMode(PGOOD, INPUT_PULLUP);
+  pinMode(RX, INPUT_PULLUP);
+  pinMode(TX, INPUT_PULLUP);
 
   // Clock pin interrupts
   pinMode(RTC_CLK, INPUT);
@@ -72,25 +90,69 @@ ISR(PORTB_PORT_vect){
   VPORTB_INTFLAGS |= 1<<3;
 }
 
+ISR(PORTA_PORT_vect){
+  int f = VPORTA_INTFLAGS;
+
+ 
+  if(f == 1<<6){
+    // Button 1
+    VPORTA_INTFLAGS |= 1<<6;
+    if (!digitalReadFast(BU1)){
+      b1.pressed = true;
+      b1.time = millis();
+    }else{
+      b1.pressed = false;
+    }
+  }else if(f == 1<<7){
+    // Button 2
+    VPORTA_INTFLAGS |= 1<<7;
+    if (!digitalReadFast(BU2)){
+      b2.pressed = true;
+      b2.time = millis();
+    }else{
+      b2.pressed = false;
+    }
+  }
+}
+
 void loop() {
+  // Disable ADC before sleep, brings system from 100 uA to 10 uA deep sleep.
+  ADC0.CTRLA &= ~ADC_ENABLE_bm;
+
   // Waits until pin change interrupt
   // Either RTC tick or button press
   sleep_cpu(); 
 
-  // TODO: handle button inputs
+  //Enable ADC after being woken up
+  ADC0.CTRLA |= ADC_ENABLE_bm;
+
+  int s1 = 0;
+
+  if(b1.pressed){
+    digitalWrite(LED_EN, LOW);
+    PORTB_PIN3CTRL &= ~PORT_ISC_BOTHEDGES_gc;
+  }
+
+  if(b2.pressed){
+    digitalWrite(LED_EN, HIGH);
+    PORTB_PIN3CTRL |= PORT_ISC_BOTHEDGES_gc;
+  }
 
   // TODO: read battery voltage
 
-  // Read phototransistor
+  // Start phototransistor 
   digitalWrite(LIGHT_EN, HIGH);
-  delay(2); 
-  int l = analogRead(LIGHT_IN);
-  digitalWrite(LIGHT_EN, LOW);
 
   // Read time and update LEDs
   rtc.updateTime();
   uint8_t h = rtc.getDateTimeComponent(DATETIME_HOUR);
   uint8_t m = rtc.getDateTimeComponent(DATETIME_MINUTE);
   uint8_t s = rtc.getDateTimeComponent(DATETIME_SECOND);
-  mat.ShowTime(h, m, s); 
+  mat.ShowTime(b2.pressed*10 + s1, m, 0); 
+
+
+  // Read phototransistor
+  int l = analogRead(LIGHT_IN);
+  digitalWrite(LIGHT_EN, LOW);
+  
 }
