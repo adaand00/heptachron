@@ -10,14 +10,20 @@ void LedMatrix::begin(){
   //Scaling of all current sources (CSy)
   for (int i = 0; i < 16; i++)
   {
-    writeRegister(0x90 + i, 200);
+    writeRegister(0x90 + i, 100);
   }
   
-  //Global current, max 64
-  writeRegister(0xA1, 20);
+  //Global current, max 64, keep very low to maximize battery life
+  writeRegister(0xA1, 1);
 
   //Conf register, 5 SW, 2.4V Logic, disable open/short det, Normal operation
-  writeRegister(0xA0, 0b01001001); 
+  writeRegister(0xA0, 0b01000001);
+
+  // Pull up/down, 
+  writeRegister(0xB0, 0b00000000);
+
+  // PWM frequency register, 1kHZ
+  writeRegister(0xB2, 0b00000100);
 
 }
 
@@ -25,11 +31,18 @@ void LedMatrix::writeByte(char byte, uint8_t sw){
   char start = sw*16 + 1;
   for(int i = start; i < start + 8; i++){
     if(sw == 4){
-      writeRegister(i, (byte & 1) * 255);
+      writeRegister(i, (byte & 1) * 100);
     }else{
-     writeRegister(i, (byte & 1) * 32);
+      writeRegister(i, (byte & 1) * 255);
     }
     byte = byte >> 1;
+  }
+}
+
+void LedMatrix::setBrightness(uint8_t brightness){
+  for (int i= 0; i<16; i++)
+  {
+    writeRegister(0x90 + i, brightness);
   }
 
 }

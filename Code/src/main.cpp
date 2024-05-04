@@ -27,8 +27,17 @@
 #define RTK_ADDR 0x52
 
 LedMatrix mat(&Wire);
-//RV3028 rtc;
 RV3028C7 rtc;
+
+enum modes {
+  OFF,
+  BUVLO,
+  TIME_SHOW,
+  TIME_EDIT,
+  BAT_SHOW,
+  BRI_SHOW,
+  BRI_EDIT,
+} mode;
 
 typedef struct button
 {
@@ -42,6 +51,10 @@ button_t b2;
 
 int i = 50;
 
+// Overwrite TCA0 init since we do not use analogWrite(), saves some flash 
+void init_TCA0() { };
+
+
 void setup() {
   // Setup sleep mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -49,7 +62,7 @@ void setup() {
   
   // Setup pins
   pinMode(LIGHT_EN, OUTPUT);
-  digitalWrite(LIGHT_EN, LOW);
+  digitalWriteFast(LIGHT_EN, LOW);
   pinMode(LIGHT_IN, INPUT);
 
   pinMode(BU1, INPUT_PULLUP);
@@ -59,7 +72,7 @@ void setup() {
   PORTA_PIN7CTRL |= PORT_ISC_BOTHEDGES_gc;
 
   pinMode(LED_EN, OUTPUT);
-  digitalWrite(LED_EN, HIGH);
+  digitalWriteFast(LED_EN, HIGH);
 
   pinMode(PGOOD, INPUT_PULLUP);
   pinMode(RX, INPUT_PULLUP);
@@ -69,6 +82,9 @@ void setup() {
   pinMode(RTC_CLK, INPUT);
   PORTB_PIN3CTRL |= PORT_ISC_BOTHEDGES_gc;
 
+  // Set fixed adc reference
+  analogReference(INTERNAL1V024);
+
   // I2C 
   Wire.begin();
   Wire.setClock(400000);
@@ -76,13 +92,9 @@ void setup() {
   // LED matrix driver
   mat.begin();
 
-  delay(100);
-
   // RTC 
   rtc.begin(Wire);
-  delay(1000);
   rtc.disableClockOutput();
-  delay(1000);
   rtc.enableClockOutput(CLKOUT_1HZ);
 }
 
@@ -93,7 +105,6 @@ ISR(PORTB_PORT_vect){
 ISR(PORTA_PORT_vect){
   int f = VPORTA_INTFLAGS;
 
- 
   if(f == 1<<6){
     // Button 1
     VPORTA_INTFLAGS |= 1<<6;
@@ -126,33 +137,41 @@ void loop() {
   //Enable ADC after being woken up
   ADC0.CTRLA |= ADC_ENABLE_bm;
 
-  int s1 = 0;
+  // Read battery voltage, int v = 1024*VDD/10
+  int v = analogRead(ADC_VDDDIV10);
 
+  if(v < 370){
+    mode = BUVLO;
+  }
+
+  // Start phototransistor 
+  digitalWriteFast(LIGHT_EN, HIGH);
+  delay(2);
+
+  // Read phototransistor
+  int l = analogRead(LIGHT_IN);
+  digitalWriteFast(LIGHT_EN, LOW);
+
+  // Read buttons
   if(b1.pressed){
-    digitalWrite(LED_EN, LOW);
+    digitalWriteFast(LED_EN, LOW);
     PORTB_PIN3CTRL &= ~PORT_ISC_BOTHEDGES_gc;
   }
 
   if(b2.pressed){
-    digitalWrite(LED_EN, HIGH);
+    digitalWriteFast(LED_EN, HIGH);
     PORTB_PIN3CTRL |= PORT_ISC_BOTHEDGES_gc;
   }
-
-  // TODO: read battery voltage
-
-  // Start phototransistor 
-  digitalWrite(LIGHT_EN, HIGH);
 
   // Read time and update LEDs
   rtc.updateTime();
   uint8_t h = rtc.getDateTimeComponent(DATETIME_HOUR);
   uint8_t m = rtc.getDateTimeComponent(DATETIME_MINUTE);
   uint8_t s = rtc.getDateTimeComponent(DATETIME_SECOND);
-  mat.ShowTime(b2.pressed*10 + s1, m, 0); 
+  if(b2.pressed){
+    mat.ShowTime(l/100, l%100, 0); 
+  }else{
+    mat.ShowTime(v/100, v%100, 0);
+  }
 
-
-  // Read phototransistor
-  int l = analogRead(LIGHT_IN);
-  digitalWrite(LIGHT_EN, LOW);
-  
 }

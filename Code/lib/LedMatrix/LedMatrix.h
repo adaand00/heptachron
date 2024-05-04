@@ -34,6 +34,9 @@ public:
   void begin();
 
   void ShowTime(uint8_t hours, uint8_t  minutes, uint8_t second);
+
+  void setBrightness(uint8_t brightness);
+
 };
 
 #endif /* LEDMATRIX_LEDMATRIX_H_ */

@@ -1,10 +1,11 @@
-Desired button functions, in order of importance
+Functions:
 
- - Set Time
- - Turn off/start
- - Read battery level (From internal VCC/10)
- - Set brightness
- - Set alarm
- - 24/12H mode
+ - View time / Set time
+ - View battery / turn off
+ - View brightness / set brightness
+ - (View alarm / set alarm)
+ - (View 24H/12H mode / set 24H/12H mode)
 
-Auto return to time
+Use `NEXT` button to go to next function. Then press `SET` button to interact
+with function. If no button is pressed for some time, the time will be displayed
+again. Hold both buttons to turn off. 
