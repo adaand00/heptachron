@@ -56,25 +56,22 @@
         }
       ],
       "drc_exclusions": [
-        "clearance|133613582|102001118|92b555ae-6bfc-4275-9aec-8ffb5b270e5d|183f02b2-00af-4548-8cca-43ba85fd6ffb",
-        "clearance|138575000|106552116|a096fa0d-17c0-4b0e-8e70-fbdd52fcb194|cd522026-d194-4f23-bdd5-6dd68171f8e7",
-        "clearance|139332388|103498233|e1886d7e-b051-4418-ae6f-92a7808eb664|eb966105-377b-4393-b146-0c9defc57dd5",
-        "clearance|147075000|97550000|20009b40-dc23-44e7-ad0f-2c28414b6c52|72c28322-7e67-4f3b-8d9b-1dc88c51a7d9",
-        "clearance|148006455|106655000|5ae7cfc5-b66d-4d6b-9178-6b475ccd35db|d9e21346-5506-4c35-9859-f3caf261e729",
-        "clearance|149724264|100157653|8600b744-3d38-4da1-84a1-bd7e12f739d4|9055e398-dcd8-48c5-a9ea-5256c4973abb",
-        "clearance|154647582|105328118|4222db0a-395c-4059-bd25-bfe5edc77400|f2f67844-463d-4bdf-9736-07646db38db4",
-        "copper_edge_clearance|127250000|104900000|f706c9da-3d21-414b-bb3c-607c89c2112a|bb5f70b8-e4df-4949-99ff-18162bdbe872",
-        "copper_edge_clearance|127250000|108150000|f706c9da-3d21-414b-bb3c-607c89c2112a|922cb89c-a374-4ac4-8c46-40c5b3ff3e59",
-        "copper_edge_clearance|127250000|92900000|f706c9da-3d21-414b-bb3c-607c89c2112a|422287e7-26ad-403f-aa1c-bd2789ab78fb",
-        "copper_edge_clearance|127250000|96150000|f706c9da-3d21-414b-bb3c-607c89c2112a|66b8e3a5-57d8-4716-989d-7a270faab7fc",
-        "copper_edge_clearance|148060000|88500000|8c4d80c8-bf23-4f6a-9339-eb6579408a63|fa93a0fa-a66e-4d67-bca6-bb40aee5a343",
-        "starved_thermal|138320000|92059338|5486744b-ea11-45e9-8d4f-aa17f7523bee|10de001a-95a2-4fcb-97a2-e233847399ea|B.Cu",
-        "starved_thermal|138575000|107325000|2bfbf294-0546-4878-aaee-1f6c1ba8cc56|cd522026-d194-4f23-bdd5-6dd68171f8e7|F.Cu",
-        "via_dangling|127900000|94700000|38f69d27-9540-418b-9252-6a81c1d7e38e|00000000-0000-0000-0000-000000000000",
-        "via_dangling|155744808|89146344|8d0cb78e-d988-4bc4-8d80-8a582bc8daaa|00000000-0000-0000-0000-000000000000",
-        "via_dangling|159700000|108000000|a02a0e05-d2fa-4b40-a191-703511a5b656|00000000-0000-0000-0000-000000000000",
-        "via_dangling|168020000|95550000|e2cb0f0f-eb2a-4b39-a820-abb8641556f9|00000000-0000-0000-0000-000000000000",
-        "via_dangling|168449692|108512772|db04902d-ee13-464c-a905-7ddb6b1567ce|00000000-0000-0000-0000-000000000000"
+        "clearance|128000000|105175000|8e45eabd-550f-40cb-9e79-dcb2ba5ea961|6d9a7e6e-c490-4ced-bb0e-aabab8ad5823",
+        "clearance|128000000|108825000|6145261d-6477-4ca7-96cb-13cafaaf3afa|8cdabead-0ad1-4d80-af1e-5869686f59b8",
+        "clearance|128000000|93175000|f082f01d-9b28-4660-9318-430a552c357f|e93b93ac-ad92-4f5f-bd98-07f32385a57d",
+        "clearance|128000000|96825000|d3f8caff-cf50-41b6-869e-829c8bf821fe|b41eb6ac-9841-419b-a45c-139e918b2ad1",
+        "copper_edge_clearance|127250000|104900000|f706c9da-3d21-414b-bb3c-607c89c2112a|6d9a7e6e-c490-4ced-bb0e-aabab8ad5823",
+        "copper_edge_clearance|127250000|108150000|f706c9da-3d21-414b-bb3c-607c89c2112a|8cdabead-0ad1-4d80-af1e-5869686f59b8",
+        "copper_edge_clearance|127250000|92900000|f706c9da-3d21-414b-bb3c-607c89c2112a|e93b93ac-ad92-4f5f-bd98-07f32385a57d",
+        "copper_edge_clearance|127250000|96150000|f706c9da-3d21-414b-bb3c-607c89c2112a|b41eb6ac-9841-419b-a45c-139e918b2ad1",
+        "malformed_courtyard|127532093|92660232|e67b6938-b5f6-4087-bb00-dc7234a31727|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|127532856|97340629|e67b6938-b5f6-4087-bb00-dc7234a31727|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|128578805|92789651|e67b6938-b5f6-4087-bb00-dc7234a31727|00000000-0000-0000-0000-000000000000",
+        "malformed_courtyard|128606096|97158350|e67b6938-b5f6-4087-bb00-dc7234a31727|00000000-0000-0000-0000-000000000000",
+        "solder_mask_bridge|128000000|105175000|58f80120-6767-4af8-a6ab-f18f847ed1bc|8e45eabd-550f-40cb-9e79-dcb2ba5ea961",
+        "solder_mask_bridge|128000000|108825000|91f5c383-6ee7-4b9d-8128-5dd718e53f9c|6145261d-6477-4ca7-96cb-13cafaaf3afa",
+        "solder_mask_bridge|128000000|93175000|27f407e3-43fa-4d52-a6f7-2f6056634a64|f082f01d-9b28-4660-9318-430a552c357f",
+        "solder_mask_bridge|128000000|96825000|3050c9f6-8331-4d3c-898a-9c30ba8fe879|d3f8caff-cf50-41b6-869e-829c8bf821fe"
       ],
       "meta": {
         "version": 2
@@ -131,7 +128,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.09,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.3,
         "min_hole_clearance": 0.25,
@@ -142,10 +139,10 @@
         "min_silk_clearance": 0.0,
         "min_text_height": 0.7999999999999999,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.0,
+        "min_through_hole_diameter": 0.19999999999999998,
+        "min_track_width": 0.09,
         "min_via_annular_width": 0.09999999999999999,
-        "min_via_diameter": 0.5,
+        "min_via_diameter": 0.35,
         "solder_mask_clearance": 0.0,
         "solder_mask_min_width": 0.0,
         "solder_mask_to_copper_clearance": 0.0,
@@ -202,6 +199,10 @@
         {
           "diameter": 0.0,
           "drill": 0.0
+        },
+        {
+          "diameter": 0.4,
+          "drill": 0.2
         },
         {
           "diameter": 0.5,
@@ -462,8 +463,8 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
+        "via_diameter": 0.4,
+        "via_drill": 0.2,
         "wire_width": 6
       },
       {
@@ -491,19 +492,19 @@
     "netclass_assignments": null,
     "netclass_patterns": [
       {
-        "netclass": "PWR",
+        "netclass": "Default",
         "pattern": "GND"
       },
       {
-        "netclass": "PWR",
+        "netclass": "Default",
         "pattern": "V**"
       },
       {
-        "netclass": "PWR",
+        "netclass": "Default",
         "pattern": "+*"
       },
       {
-        "netclass": "PWR",
+        "netclass": "Default",
         "pattern": "/BMSOUT"
       }
     ]
