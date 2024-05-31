@@ -10,7 +10,7 @@ void LedMatrix::begin(){
   //Scaling of all current sources (CSy)
   for (int i = 0; i < 16; i++)
   {
-    writeRegister(0x90 + i, 100);
+    writeRegister(0x90 + i, 150);
   }
   
   //Global current, max 64, keep very low to maximize battery life
@@ -31,7 +31,8 @@ void LedMatrix::writeByte(char byte, uint8_t sw){
   char start = sw*16 + 1;
   for(int i = start; i < start + 8; i++){
     if(sw == 4){
-      writeRegister(i, (byte & 1) * 100);
+      // Special brightness for small LEDS
+      writeRegister(i, (byte & 1) * 255);
     }else{
       writeRegister(i, (byte & 1) * 255);
     }
@@ -47,16 +48,38 @@ void LedMatrix::setBrightness(uint8_t brightness){
 
 }
 
-void LedMatrix::ShowTime(uint8_t h, uint8_t m, uint8_t s){
+void LedMatrix::ShowBytes(
+  uint8_t D3, uint8_t D2, uint8_t D1, uint8_t D0, uint8_t b)
+{
+  writeByte(D3, 3);
+  writeByte(D2, 2);
+  writeByte(D1, 1);
+  writeByte(D0, 0);
+  writeByte(b, 4);
+}
 
+void LedMatrix::ShowTime(uint8_t h, uint8_t m, uint8_t s, bool c){
   writeByte(num_to_seg[m%10], 0);
   writeByte(num_to_seg[(m/10)%10], 1);
  
   writeByte(num_to_seg[h%10], 2);
   writeByte(num_to_seg[(h/10)%10], 3);
 
-  writeByte(s, 4);
+  // Reverse bits in s
+  uint8_t s_rev;
+  for (size_t i = 0; i < 6; i++)
+  {
+    s_rev |= ((s >> i) & 1) << (6-i);
+  }
 
+  //s = s_rev;
+
+  if(c){
+    // Colon at two top bits
+    s = 0b11000000 | s;
+  }
+
+  writeByte(s, 4);
 }
 
 void LedMatrix::writeRegister(uint8_t reg, uint8_t val){

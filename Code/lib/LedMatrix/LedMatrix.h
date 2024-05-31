@@ -33,7 +33,9 @@ public:
 
   void begin();
 
-  void ShowTime(uint8_t hours, uint8_t  minutes, uint8_t second);
+  void ShowTime(uint8_t hours, uint8_t  minutes, uint8_t second, bool colon);
+
+  void ShowBytes(uint8_t D3, uint8_t D2, uint8_t D1, uint8_t D0, uint8_t b);
 
   void setBrightness(uint8_t brightness);
 
