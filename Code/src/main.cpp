@@ -166,10 +166,7 @@ void loop() {
     if(b2){
       edit = (edit+1)%3;
     }
-
-    int m_show = UINT8_MAX;
-    int h_show = UINT8_MAX;
-
+    
     if(edit==1){
       // Edit minutes
       m=(m+b1)%60;
@@ -179,8 +176,8 @@ void loop() {
       rtc.synchronize();
       
       // Blink minutes
-      if(i%2 == 1){
-        m_show = 0;
+      if(i%2 == 0){
+        m = 255;
       }
       
     }else if(edit==2){
@@ -191,12 +188,12 @@ void loop() {
       rtc.setDateTimeComponent(DATETIME_SECOND, 0);
       rtc.synchronize();
 
-      if(i%2 == 1){
-        h_show = 0;
+      if(i%2 == 0){
+        h = 255;
       }
     }
 
-    mat.ShowTime(h & h_show, m & m_show, s, i%2);
+    mat.ShowTime(h, m, s, i%2);
     break;
 
   case BAT:

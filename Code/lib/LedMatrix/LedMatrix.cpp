@@ -59,20 +59,32 @@ void LedMatrix::ShowBytes(
 }
 
 void LedMatrix::ShowTime(uint8_t h, uint8_t m, uint8_t s, bool c){
-  writeByte(num_to_seg[m%10], 0);
-  writeByte(num_to_seg[(m/10)%10], 1);
- 
-  writeByte(num_to_seg[h%10], 2);
-  writeByte(num_to_seg[(h/10)%10], 3);
-
-  // Reverse bits in s
-  uint8_t s_rev;
-  for (size_t i = 0; i < 6; i++)
-  {
-    s_rev |= ((s >> i) & 1) << (6-i);
+  // Turn off pixels with m = 255
+  if(m < 99){
+    writeByte(num_to_seg[m%10], 0);
+    writeByte(num_to_seg[(m/10)%10], 1);
+  }else{
+    writeByte(0, 0);
+    writeByte(0, 1);
   }
 
-  //s = s_rev;
+  // Turn off pixels with h = 255
+  if(h < 99){
+    writeByte(num_to_seg[h%10], 2);
+    writeByte(num_to_seg[(h/10)%10], 3);
+  }else{
+    writeByte(0, 2);
+    writeByte(0, 3);
+  }
+
+  // Reverse bits in s
+  uint8_t s_rev = 0;
+  for (size_t i = 0; i < 6; i++)
+  {
+    s_rev |= ((s >> i) & 1) << (5-i);
+  }
+
+  s = s_rev;
 
   if(c){
     // Colon at two top bits
