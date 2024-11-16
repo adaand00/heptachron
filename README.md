@@ -6,27 +6,29 @@
 /_/ /_/_____/_/     /_/ /_/  |_\____/_/ /_/_/ |_|\____/_/ |_/   
 ```                                                                
 ## Heptachron - 7 segment LED wrist watch
+Latest prototype:
+
+<img src="https://github.com/adaand00/heptachron/blob/main/Pictures/hepta_video.gif" width="1000"/>
+<img src="https://github.com/adaand00/heptachron/blob/main/Pictures/hepta_1.jpg" width="1000"/>
 
 ### Concepts and ideas
-
-
-![CAD concept](<Pictures/Heptachron_LED v5.png>)
-
-![PCB render](Pictures/PCB_concept.png)
+<img src="https://github.com/adaand00/heptachron/blob/main/Pictures/Heptachron_Ass1%20v6.png" width="1000"/>
+<img src="https://github.com/adaand00/heptachron/blob/main/Pictures/Heptachron_Ass1%20v7.png" width="1000"/>
 
 
 ### Features
- - [ ] 4 digits (hours and minutes)
- - [ ] Seconds displayed in binary (6 bits)
- - [ ] Always-on display
- - [ ] Rechargeable battery
- - [ ] Magnetic charger
+ - [x] 4 digits (hours and minutes)
+ - [x] Seconds displayed in binary (6 bits)
+ - [x] Always-on display
+ - [x] Rechargeable battery
+ - [x] Magnetic charger
  - [ ] Long battery life
  - [x] Megatron
- - [ ] Not waterproof
+ - [x] Not waterproof
  - [ ] Very accurate
 
 ### Contributors
+Adam Anderson: Electronics, programming
 
-Gustav Abrahamsson, Adam Anderson 
+Gustav Abrahamsson: Electronics, mechanical design
 
